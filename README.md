@@ -2,7 +2,7 @@
 
 A hands-on monitoring lab using the **Datadog Agent** deployed on a Windows host. Covers agent installation, metric collection, monitor creation, dashboard visualisation, and alert testing.
 
----
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Objectives
 
@@ -12,22 +12,22 @@ A hands-on monitoring lab using the **Datadog Agent** deployed on a Windows host
 - Build a live monitoring dashboard
 - Generate synthetic load to trigger and validate the alert
 
----
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Environment
 
-| Component | Detail |
-|-----------|--------|
-| Host OS | Windows (physical host running VMware Workstation) |
-| Datadog Agent | v7.86.0-1 |
-| Datadog Region | EU — uk1.datadoghq.com |
-| Plan | Free tier (Log Management not included) |
+|   Component    |                  Detail                            |
+|----------------|----------------------------------------------------|
+| Host OS        | Windows (physical host running VMware Workstation) |
+| Datadog Agent  | v7.86.0-1                                          |
+| Datadog Region | EU — uk1.datadoghq.com                             |
+| Plan           | Free tier (Log Management not included)            |
 
----
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Lab Steps
 
-### Step 1 — Install the Datadog Agent
+### Step 1 - Install the Datadog Agent
 
 Installed the Datadog Agent on the Windows host via the official installer. Post-install verification via PowerShell:
 
@@ -41,9 +41,9 @@ Get-Service | Where-Object {$_.DisplayName -like "*Datadog*"}
 
 **Result:** `datadogagent` service confirmed as `Running`.
 
----
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-### Step 2 — Configure Windows Security Event Log Forwarding (attempted)
+### Step 2 - Configure Windows Security Event Log Forwarding (attempted)
 
 Created the config file for Windows Security Event log forwarding:
 
@@ -67,26 +67,26 @@ Restart-Service -Name "datadogagent" -Force
 
 > **Note:** Log Management is not available on the Datadog free plan. The lab was pivoted to metrics-based monitoring using `system.cpu.user` and `system.mem.pct_usable` — which better reflects a real production monitoring use case.
 
----
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-### Step 3 — Create a Monitor (High CPU Alert)
+### Step 3 - Create a Monitor (High CPU Alert)
 
 Created a **Metric Monitor** to alert when average CPU usage exceeds the threshold over a 5-minute window.
 
-| Setting | Value |
-|---------|-------|
-| Monitor type | Metric — Threshold Alert |
-| Query | `avg(last_5m):avg:system.cpu.user{*} > 80` |
-| Alert threshold | > 80% |
-| Monitor name | High CPU Usage : Windows Host |
+| Setting         |                 Value                      |
+|-----------------|--------------------------------------------|
+| Monitor type    | Metric — Threshold Alert                   |
+| Query           | `avg(last_5m):avg:system.cpu.user{*} > 80` |
+| Alert threshold | > 80%                                      |
+| Monitor name    | High CPU Usage : Windows Host              |
 
-**Monitor status: OK (green) — live data flowing from host.**
+**Monitor status: OK (green) - live data flowing from host.**
 
 ![Monitor OK](screenshots/monitor-ok.png)
 
----
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-### Step 4 — Build the Dashboard
+### Step 4 - Build the Dashboard
 
 Created a blank dashboard named **Windows Host Monitoring** with two widgets:
 
@@ -102,7 +102,7 @@ Created a blank dashboard named **Windows Host Monitoring** with two widgets:
 
 ![Dashboard](screenshots/dashboard.png)
 
----
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ### Step 5 — Generate Test Data and Trigger Alert
 
@@ -123,19 +123,19 @@ The monitor transitioned from **OK → ALERT** at **14:23 on 25 Nov 2026**, with
 
 ![Monitor Alert](screenshots/monitor-alert.png)
 
----
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Results
 
-| Deliverable | Status |
-|-------------|--------|
-| Datadog Agent installed and running | ✅ |
-| System metrics flowing (CPU + memory) | ✅ |
-| Threshold monitor created | ✅ |
-| Dashboard with two live widgets | ✅ |
-| CPU spike generated and alert triggered | ✅ |
+|        Deliverable                      | Status |
+|-----------------------------------------|--------|
+| Datadog Agent installed and running     | ✅    |
+| System metrics flowing (CPU + memory)   | ✅    |
+| Threshold monitor created               | ✅    |
+| Dashboard with two live widgets         | ✅    |
+| CPU spike generated and alert triggered | ✅    |
 
----
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Key Takeaways
 
@@ -144,19 +144,19 @@ The monitor transitioned from **OK → ALERT** at **14:23 on 25 Nov 2026**, with
 - **Free plan scope:** Log Management (including Windows Security Event log forwarding for Event ID 4625 — failed logons) requires a paid plan. For SIEM use cases, a paid tier or an alternative stack (e.g. Elastic/OpenSearch) would be appropriate.
 - **Dashboard visibility:** Combining a timeseries (trend) with a query value (current state) gives both historical context and an at-a-glance health indicator — a standard pattern in real SOC dashboards.
 
----
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Screenshots
 
 Upload your screenshots to a `screenshots/` folder in this repo:
 
-| File | Contents |
-|------|----------|
-| `screenshots/monitor-ok.png` | Monitor in OK state — live CPU data |
-| `screenshots/dashboard.png` | Completed dashboard with both widgets |
-| `screenshots/monitor-alert.png` | Monitor in ALERT state — CPU spike |
+| File                            | Contents                              |
+|---------------------------------|---------------------------------------|
+| `screenshots/monitor-ok.png`    | Monitor in OK state — live CPU data   |
+| `screenshots/dashboard.png`     | Completed dashboard with both widgets |
+| `screenshots/monitor-alert.png` | Monitor in ALERT state — CPU spike    |
 
----
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Author
 
