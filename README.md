@@ -20,7 +20,7 @@ A hands-on monitoring lab using the **Datadog Agent** deployed on a Windows host
 |----------------|----------------------------------------------------|
 | Host OS        | Windows (physical host running VMware Workstation) |
 | Datadog Agent  | v7.86.0-1                                          |
-| Datadog Region | EU — uk1.datadoghq.com                             |
+| Datadog Region | EU - uk1.datadoghq.com                             |
 | Plan           | Free tier (Log Management not included)            |
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
