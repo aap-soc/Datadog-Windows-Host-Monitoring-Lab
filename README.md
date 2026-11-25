@@ -65,7 +65,7 @@ Restarted the agent to apply the config:
 Restart-Service -Name "datadogagent" -Force
 ```
 
-> **Note:** Log Management is not available on the Datadog free plan. The lab was pivoted to metrics-based monitoring using `system.cpu.user` and `system.mem.pct_usable` — which better reflects a real production monitoring use case.
+> **Note:** Log Management is not available on the Datadog free plan. The lab was pivoted to metrics-based monitoring using `system.cpu.user` and `system.mem.pct_usable` - which better reflects a real production monitoring use case.
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -75,7 +75,7 @@ Created a **Metric Monitor** to alert when average CPU usage exceeds the thresho
 
 | Setting         |                 Value                      |
 |-----------------|--------------------------------------------|
-| Monitor type    | Metric — Threshold Alert                   |
+| Monitor type    | Metric - Threshold Alert                   |
 | Query           | `avg(last_5m):avg:system.cpu.user{*} > 80` |
 | Alert threshold | > 80%                                      |
 | Monitor name    | High CPU Usage : Windows Host              |
@@ -90,12 +90,12 @@ Created a **Metric Monitor** to alert when average CPU usage exceeds the thresho
 
 Created a blank dashboard named **Windows Host Monitoring** with two widgets:
 
-**Widget 1 — CPU Timeseries**
+**Widget 1 - CPU Timeseries**
 - Type: Timeseries
 - Metric: `system.cpu.user`
 - Title: `CPU Usage Over Time`
 
-**Widget 2 — Available Memory**
+**Widget 2 - Available Memory**
 - Type: Query Value
 - Metric: `system.mem.pct_usable`
 - Title: `Available Memory %`
@@ -104,7 +104,7 @@ Created a blank dashboard named **Windows Host Monitoring** with two widgets:
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-### Step 5 — Generate Test Data and Trigger Alert
+### Step 5 - Generate Test Data and Trigger Alert
 
 Ran synthetic CPU load using PowerShell background jobs to push usage above the alert threshold:
 
@@ -117,9 +117,9 @@ Get-Job | Stop-Job
 Get-Job | Remove-Job
 ```
 
-**Threshold tuning:** During initial testing, the alert threshold was temporarily lowered to 40% to validate that the alerting pipeline was working end-to-end (agent → Datadog → monitor evaluation → state change). Once confirmed, the threshold was restored to 80%. A subsequent CPU spike then triggered the alert at the full production threshold.
+**Threshold tuning:** During initial testing, the alert threshold was temporarily lowered to 20% to validate that the alerting pipeline was working end-to-end (agent → Datadog → monitor evaluation → state change). Once confirmed, the threshold was restored to 80%. A subsequent CPU spike then triggered the alert at the full production threshold.
 
-The monitor transitioned from **OK → ALERT** at **14:23 on 25 Nov 2026**, with CPU usage clearly exceeding 80%. The graph shows the full alert lifecycle — spike, alert, and recovery back to OK.
+The monitor transitioned from **OK → ALERT** at **14:23 on 25 Nov 2026**, with CPU usage clearly exceeding 80%. The graph shows the full alert lifecycle - spike, alert, and recovery back to OK.
 
 ![Monitor Alert](screenshots/monitor-alert.png)
 
@@ -142,7 +142,7 @@ The monitor transitioned from **OK → ALERT** at **14:23 on 25 Nov 2026**, with
 - **Agent deployment:** The Datadog Agent runs as a Windows service and collects host metrics out of the box with minimal configuration.
 - **Monitor tuning:** Alert thresholds should reflect observed baselines, not arbitrary values. The 5-minute average window smooths transient spikes and reduces false positives.
 - **Free plan scope:** Log Management (including Windows Security Event log forwarding for Event ID 4625 — failed logons) requires a paid plan. For SIEM use cases, a paid tier or an alternative stack (e.g. Elastic/OpenSearch) would be appropriate.
-- **Dashboard visibility:** Combining a timeseries (trend) with a query value (current state) gives both historical context and an at-a-glance health indicator — a standard pattern in real SOC dashboards.
+- **Dashboard visibility:** Combining a timeseries (trend) with a query value (current state) gives both historical context and an at-a-glance health indicator - a standard pattern in real SOC dashboards.
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -152,9 +152,9 @@ Upload your screenshots to a `screenshots/` folder in this repo:
 
 | File                            | Contents                              |
 |---------------------------------|---------------------------------------|
-| `screenshots/monitor-ok.png`    | Monitor in OK state — live CPU data   |
+| `screenshots/monitor-ok.png`    | Monitor in OK state - live CPU data   |
 | `screenshots/dashboard.png`     | Completed dashboard with both widgets |
-| `screenshots/monitor-alert.png` | Monitor in ALERT state — CPU spike    |
+| `screenshots/monitor-alert.png` | Monitor in ALERT state - CPU spike    |
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
